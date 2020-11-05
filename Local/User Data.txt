@@ -1,9 +1,0 @@
-User and Owner: enrreigut
-Password: enrreigut
-Database: egc
-
-//Admin SuperUser
-
-user: enrreigut
-mail: enrreigut@alum.us.es
-password: decide12345
