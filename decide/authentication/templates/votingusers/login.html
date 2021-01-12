@@ -1,27 +1,14 @@
-{% load socialaccount %}
 <html>
-  <head>
+<head>
     {% load static %}
+    {% load socialaccount %}
     <link rel="stylesheet" type="text/css" href="{% static 'votingusers/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'index/menu.css' %}">
     <title>DECIDE FULL GUADALFEO</title>
-  </head>
-  <body>
+</head>
+<body>
+    {% include "index/menu.html" %}
 
-  <nav class="menu">
-     <span>
-       <h1>DECIDE</h1>
-     </span>
-     <ul>
-         {% if user.is_authenticated %}
-            <li>Welcome, {{ user.username }} !</li>
-            <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-         {% else %}
-            <li><a href="{% url 'auth_login' %}">Login</a></li>
-            <li><a href="{% provider_login_url 'google' %}">Login with Google</a> </li>
-         {% endif %}
-     </ul>
-  </nav>
-  
   <div class="container">
 
         <h1>LOGIN</h1>
@@ -41,6 +28,10 @@
                   {{login_form.as_p}}
                   <input type="submit" value="Login">
               </form>
+
+              <a href="{% provider_login_url 'google' %}">Login with Google</a>
+              <a href="{% url 'social:begin' 'github'%}">Login with Github</a>
+              <a href="{% url 'social:begin' 'linkedin-oauth2'%}">Login with Linkedin</a>
 
               <a href="{% url 'auth_register' %}">Need an account? Register here!</a>
 

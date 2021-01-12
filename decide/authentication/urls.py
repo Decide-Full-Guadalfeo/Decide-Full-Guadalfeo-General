@@ -2,7 +2,7 @@ from django.urls import include, path
 from django.contrib.auth.views import logout
 from rest_framework.authtoken.views import obtain_auth_token
 
-from .views import GetUserView, LogoutView, IndexUserView, LoginUserView, RegisterUserView, CompleteVotingUserDetails
+from .views import *
 
 
 urlpatterns = [
@@ -15,4 +15,7 @@ urlpatterns = [
     path('decide/logout/', logout, name="auth_logout"),
     path('decide/register/', RegisterUserView.as_view(), name="auth_register"),
     path('decide/register/complete/', CompleteVotingUserDetails.as_view(), name='auth_register_complete'),
+    path('decide/getVotingUser/', GetVotingUser.as_view(), name='auth_get_voting_user'),
+    path('social-auth/', include('social_django.urls')),
+    path('user/<int:id>/', GetUserDetailsView.as_view()),
 ]
