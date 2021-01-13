@@ -67,7 +67,7 @@ class VisualizerView(TemplateView):
 
         try:
             r = mods.get('voting', params={'id': vid})
-            context['voting'] = json.dumps(r[0],indent=4)
+            context['voting'] = json.dumps(r[0]["postproc"])
             context['botUrl']="http://localhost:8000/visualizer/botResults/"+str(r[0]['id'])
             context['whatsappUrl']="https://api.whatsapp.com/send?text=Puedes%20ver%20los%20resultados%20de%20la%20votación%20en%20el%20siguiente%20enlace:%20http://localhost:8000/visualizer/botResults/"+str(r[0]['id'])
             context['twitterUrl']="https://twitter.com/intent/tweet?text=Puedes%20ver%20los%20resultados%20de%20la%20votación%20en%20el%20siguiente%20enlace:%20http://localhost:8000/visualizer/botResults/"+str(r[0]['id'])
