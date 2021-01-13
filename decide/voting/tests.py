@@ -24,6 +24,54 @@ class VotingTestCase(BaseTestCase):
     def tearDown(self):
         super().tearDown()
 
+
+    # Practica 2: Pruebas de Modelo
+    def test_Voting_toString(self):
+        v = self.create_voting()
+        self.assertEquals(str(v),"test voting")
+        self.assertEquals(str(v.question),"test question")
+        self.assertEquals(str(v.question.options.all()[0]),"option 1 (2)")
+    
+    # Practica 2: Prueba de Modelo - Ejercicio 1
+    def test_create_voting(self):
+        q=Question(desc="Description")
+        q.save()
+
+        opt1 = QuestionOption(question=q, option="option1")
+        opt1.save()
+        opt2 = QuestionOption(question=q, option="option2")
+        opt2.save()
+
+        self.v = Voting(name="Votacion", question=q)
+        self.v.save()
+
+        v = Voting.objects.get(name="Votacion")
+        self.assertEquals(v.question.options.all()[0].option, "option1")
+
+    # Practica 2: Prueba de API
+    def test_update_voting_400(self):
+        v = self.create_voting()
+        data = {} #El campo action es requerido en la request
+        self.login()
+        response = self.client.put('/voting/{}/'.format(v.pk), data, format= 'json')
+        self.assertEquals(response.status_code, 400)
+
+    # Practica 2: Prueba de API- Ejercicio 1
+    def test_create_voting_api(self):
+        self.login()
+        data = {
+            'name': 'Example',
+            'desc': 'Description',
+            'question': 'Question 1',
+            'question_opt': ['opt1', 'opt2', 'opt3']
+        }
+
+        response = self.client.post('/voting/', data, format='json')
+        self.assertEqual(response.status_code,201)
+        
+        v = Voting.objects.get(name="Example")
+        self.assertEquals(v.desc,'Description')
+
     def encrypt_msg(self, msg, v, bits=settings.KEYBITS):
         pk = v.pub_key
         p, g, y = (pk.p, pk.g, pk.y)
@@ -31,10 +79,10 @@ class VotingTestCase(BaseTestCase):
         k.k = ElGamal.construct((p, g, y))
         return k.encrypt(msg)
 
-    def create_voting(self,opt_number=5):
+    def create_voting(self):
         q = Question(desc='test question')
         q.save()
-        for i in range(opt_number):
+        for i in range(5):
             opt = QuestionOption(question=q, option='option {}'.format(i+1))
             opt.save()
         v = Voting(name='test voting', question=q)
@@ -82,7 +130,7 @@ class VotingTestCase(BaseTestCase):
                 voter = voters.pop()
                 mods.post('store', json=data)
         return clear
-
+    """
     def test_complete_voting(self):
         v = self.create_voting()
         self.create_voters(v)
@@ -105,7 +153,7 @@ class VotingTestCase(BaseTestCase):
 
         for q in v.postproc:
             self.assertEqual(tally.get(q["number"], 0), q["votes"])
-
+    """
     def test_create_voting_from_api(self):
         data = {'name': 'Example'}
         response = self.client.post('/voting/', data, format='json')
@@ -130,33 +178,6 @@ class VotingTestCase(BaseTestCase):
 
         response = self.client.post('/voting/', data, format='json')
         self.assertEqual(response.status_code, 201)
-
-    def test_create_voting(self):
-        v = self.create_voting(2)
-        self.assertEquals(str(v),"test voting") 
-        self.assertEquals(str(v.question),"test question")
-        self.assertEquals(len(v.question.options.all()),2)
-        self.assertEquals(v.question.options.all()[0].option,"option 1")
-        self.assertEquals(v.question.options.all()[1].option,"option 2")
-
-    def test_create_voting_api(self):
-        self.login()
-
-        data = {
-            'name': 'test voting',
-            'desc': 'voting description',
-            'question': 'test question',
-            'question_opt': ['option 1', 'option 2']
-        }
-
-        response = self.client.post('/voting/', data, format='json')
-        self.assertEqual(response.status_code, 201)
-
-        v = Voting.objects.get(name = "test voting")
-        self.assertEquals(str(v.question),"test question")
-        self.assertEquals(len(v.question.options.all()),2)
-        self.assertEquals(v.question.options.all()[0].option,"option 1")
-        self.assertEquals(v.question.options.all()[1].option,"option 2")
 
     def test_update_voting(self):
         voting = self.create_voting()
@@ -235,16 +256,3 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), 'Voting already tallied')
-
-    def test_Voting_toString(self):
-        v = self.create_voting()
-        self.assertEquals(str(v),"test voting")
-        self.assertEquals(str(v.question),"test question")
-        self.assertEquals(str(v.question.options.all()[0]),"option 1 (2)")
-
-    def test_update_voting_400(self):
-        v = self.create_voting()
-        data = {} #El campo action es requerido en la request
-        self.login()
-        response = self.client.put('/voting/{}/'.format(v.pk), data, format= 'json')
-        self.assertEquals(response.status_code, 400)

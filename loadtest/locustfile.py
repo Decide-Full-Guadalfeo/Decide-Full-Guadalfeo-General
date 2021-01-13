@@ -12,7 +12,7 @@ from locust import (
 
 
 HOST = "http://localhost:8000"
-VOTING = 2
+VOTING = 1
 
 
 class DefVisualizer(TaskSet):
@@ -66,6 +66,8 @@ class Visualizer(HttpUser):
     host = HOST
     tasks = [DefVisualizer]
     wait_time = between(3,5)
+
+
 
 class Voters(HttpUser):
     host = HOST
