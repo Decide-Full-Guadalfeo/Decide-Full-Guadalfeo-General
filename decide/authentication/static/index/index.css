@@ -38,6 +38,7 @@
 
     background-color: #dfe6e9;
     transition: 0.4s;
+    
 }
 
 .vote:hover
@@ -53,6 +54,7 @@
     color: black;
     margin: auto;
     transition: 0.2s;
+    word-wrap: break-word;
 }
 
 .vote a:hover
