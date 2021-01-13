@@ -5,6 +5,7 @@ from .models import QuestionOption, Candidatura
 from base.models import Auth
 from .models import Question
 from .models import Voting
+from rest_framework.authtoken.models import Token
 
 from .filters import StartedFilter
 from authentication.models import VotingUser
@@ -210,7 +211,7 @@ realizarEleccionGeneral.short_description='Crear votación general con las candi
 
 def tally(ModelAdmin, request, queryset):
     for v in queryset.filter(end_date__lt=timezone.now()):
-        token = request.session.get('auth-token', '')
+        token = str(Token.objects.get(user=request.user))
         v.tally_votes(token)
 
 def borrarVotingPrimary(ModelAdmin, request, queryset):

@@ -79,12 +79,14 @@ const App = () => {
       headers: {
         "content-type": "application/json",
         "X-CSRFToken": getCookie("csrftoken"),
+        //"auth-token": votingUserData.token,
       },
       method: "POST",
     };
-
+    console.log(votingUserData)
     if (votingUserData) {
       fdata.headers["Authorization"] = "Token " + votingUserData.token;
+      fdata.headers["auth-token"] = "Token " + votingUserData.token;
     }
 
     return fetch(url, fdata).then((response) => {
