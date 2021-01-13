@@ -8,8 +8,7 @@ class PostProcView(APIView):
     def post(self, request):
 
         voting = request.data
-        voting["preguntas"] = sorted(voting["preguntas"],key = lambda i: i['indice_preg'])
-        print(json.dumps(voting,indent=4))
+        voting["preguntas"] = sorted(voting["preguntas"],key = lambda i: i['indice_preg'])        
         
         # Adding voting statistics
         abstencion = {}
