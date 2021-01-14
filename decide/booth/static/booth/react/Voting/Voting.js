@@ -325,13 +325,9 @@ const Voting = ({ utils }) => {
       });
 
       var colors = new Array(
-        "#DE8F7B",
-        "#E4A282",
-        "#E9B489",
-        "#E1C98D",
-        "#44b8AA",
+        "#426A7A",
         "#439192",
-        "#426A7A"
+        "#E4A282"
       );
      
       $(".question").each(function (index) {
@@ -451,7 +447,7 @@ const Voting = ({ utils }) => {
               <div className="question" key={o.desc}>
                 <div align="center">
                   {" "}
-                  <h2>{o.desc}</h2>
+                  <h2 style={{textTransform: 'uppercase'}}><strong>{o.desc}</strong></h2>
                 </div>
                 <div className="container-fluid ">
                   <div className="boxesDiv">
@@ -477,39 +473,15 @@ const Voting = ({ utils }) => {
                                       value={p.number}
                                     />
 
-<h1>{utils.lang["cand"]}</h1>
-                                    <p>{p.option}</p>
-                                    <img src="https://www.us.es/sites/default/files/2019-05/marca-US-bn.jpg" alt="logo"></img>
+                                    <h4>{utils.lang["cand"]}</h4><br/>
+                                    <h3>{p.option.split(" / ")[0]}</h3>
+                                    <img className="responsive" src="https://www.uco.es/investigacion/proyectos/SEBASENet/images/Logo_US.png" alt="logo"></img>
                                     
                                   </div>
 
                                   <div className="flip-card-back">
-                                    <h1>{utils.lang["select"]}</h1>
-                                    <p>{p.option}</p>
-                                    {/*<img src="./separador.png" alt="separador"></img>*/}
-                                    <p>{o.option}</p>
-                                    <hr class="linea"></hr>
-                                    <hr class="linea"></hr>
-                                    <hr class="linea"></hr>
-                                    <hr class="linea"></hr>
-                                    {/*<img src="./separador.png" alt="separador"></img>*/}
-                                    {/*<p>Candidacy:</p>
-                                    <p>{o.option}</p>*/}
-                                    {/*<p>Gender:</p>
-                                    <p>{o.option}</p>*/}
-                                    
-
-                                    {/*<img src="./separador.png" alt="separador"></img>
-                                  </div>
-                                    <h4>{utils.lang["cand"]}</h4>
-                                    <br />
-                                    <h3>{p.option}</h3>
-                                  </div>
-
-                                  <div className="flip-card-back">
-                                    <h4>{utils.lang["select"]}</h4>
-                                    <br></br>
-                                    <h3><strong>{p.option}</strong></h3>*/}
+                                    <h4>{utils.lang["select"]}</h4><br/>
+                                    <h3>{p.option.split("/")[0]}</h3>
                                   </div>
                                 </div>
                               </div>
