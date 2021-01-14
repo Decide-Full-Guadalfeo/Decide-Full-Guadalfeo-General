@@ -79,9 +79,12 @@ class BoothListView(APIView):
             
             else:
                 for c in census:
-                    voting = Voting.objects.get(id=c.voting_id)
-                    if voting.start_date != None and voting.end_date == None:
-                        votings.append({'name':voting.name, 'id':voting.id})
+                    try:
+                        voting = Voting.objects.get(id=c.voting_id)
+                        if voting.start_date != None and voting.end_date == None:
+                            votings.append({'name':voting.name, 'id':voting.id})
+                    except:
+                        print('La votación con id', c.voting_id, 'ha sido borrada')
 
 
         
