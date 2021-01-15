@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet"
          href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
     <link type="text/css" rel="stylesheet" href="{% static 'visualizer/style.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'visualizer/menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'index/menu.css' %}">
     
     
 {% endblock %}
@@ -17,7 +17,7 @@
 {% block content %}
     <div id="app-visualizer">
         <!-- Navbar -->
-        {% include "visualizer/menu.html" %}
+        {% include "index/menu.html" %}
 
         <div class="voting mr-5">
             <h1 v-if="voting != null" class="ml-5">[[ voting.titulo ]]</h1><br/>
