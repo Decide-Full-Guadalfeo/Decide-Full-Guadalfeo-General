@@ -13,7 +13,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from base.tests import BaseTestCase
 import time
 import re
 
